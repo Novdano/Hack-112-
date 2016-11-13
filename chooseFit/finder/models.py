@@ -14,7 +14,7 @@ class userData(models.Model):
                     ("slimming", "slimming"),
                     ("fitness", "fitness" )
                     )
-    goals = models.CharField(max_length = 10, choices =goalChoices)
+    goals = models.CharField(max_length = 10, choices =goalChoices, default = "fitness")
     heightInches = models.IntegerField(default = 0)
     profile = models.CharField(max_length = 1000, default = "http://cdn3.denofgeek.us/sites/denofgeekus/files/scarlett_johansson.jpg")
     location = models.CharField(max_length = 500, default = "Carnegie Mellon University")

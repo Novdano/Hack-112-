@@ -3,35 +3,36 @@ import math
 import googlemaps
 
 class Excercise (object):
-	def __init__(self, name, muscleGroup = None):
+	def __init__(self, name, muscleGroup = None, link = None):
 		self.name = name
 		self.muscleGroup = muscleGroup
+		self.link = link
 
 	def __hash__(self):
 		attributes = (self.name, self.muscleGroup)
 		return hash(attributes)
 
 def getBulkExercises():
-	BP = Excercise ("Bench Press", "Chest")
-	SP = Excercise ("Shoulder Press", "Shoulders")
-	F = Excercise ("Fly", "Chest")
-	HC = Excercise ("Hammer Curls", "Biceps")
-	TP = Excercise ("Tricep Pushdown", "Tricep")
-	LP = Excercise ("Leg Press", "Legs")
+	BP = Excercise ("Bench Press", muscleGroup = "Chest", link = "https://www.youtube.com/watch?v=6JtP6ju0IMw")
+	SP = Excercise ("Shoulder Press", muscleGroup = "Shoulders", link = "https://www.youtube.com/watch?v=qEwKCR5JCog")
+	F = Excercise ("Fly", muscleGroup = "Chest", link = "https://www.youtube.com/watch?v=_4JjOqy0UiY")
+	HC = Excercise ("Hammer Curls", muscleGroup = "Biceps", link = "https://www.youtube.com/watch?v=IOOU5yChBhk")
+	TP = Excercise ("Tricep Pushdown", muscleGroup = "Tricep", link = "https://www.youtube.com/watch?v=BLvSbziilmo")
+	LP = Excercise ("Leg Press", muscleGroup = "Legs", link = "https://www.youtube.com/watch?v=Aq5uxXrXq7c")
 
 	bulkExercises = [BP, SP, F, HC, TP, LP]
 	return bulkExercises
 
 def getCardioExercises():
-    cardioExercises = []
-    exercises = [
-                      'Jog', 'Brisk Walk', 'HIIT',
-                      'Circuit Training', 'Rowing', 'Zumba'
-                ]
-
-    for exercise in exercises:
-        cardioExercises.append(Excercise(exercise))
-    return cardioExercises
+	Jog = Excercise ("Jog", link = "https://www.youtube.com/watch?v=C0rS43ocutI")
+	BW = Excercise ("Brisk Walk", link = "https://www.youtube.com/watch?v=YLZhIQwt6L8")
+	HIIT = Excercise("HIIT", link = "https://www.youtube.com/watch?v=tbbZBtdd20U")
+	CT = Excercise ("Circuit Training", link = "https://www.youtube.com/watch?v=460nSW7xEok")
+	Rowing = Excercise ("Rowing", link = "https://www.youtube.com/watch?v=bc2bVqkkcDE")
+	Zumba = Excercise ("Zumba", link = "https://www.youtube.com/watch?v=HRkNfdlm5Qs")
+	
+	cardioExercises = [Jog, BW, HIIT, CT, Rowing, Zumba]
+	return cardioExercises
 
 class User (object):
 
@@ -78,7 +79,7 @@ class User (object):
 
 		#comparing distance
 		distance = self.getDistance(other)
-		if (distance != None):
+		if(distance != None):
 			multiplierBase = 1/.95
 			distanceMultiplier = multiplierBase**(-distance)
 			multiplierSum += distanceMultiplier
@@ -99,7 +100,6 @@ class User (object):
 		return (compatibility, distance)
 
 	def getDistance(self, other):
-		print(self.location, other.location)
 		try:
 			matrix = User.gmaps.distance_matrix(self.location, other.location)
 		except:
