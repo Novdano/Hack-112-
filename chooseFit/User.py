@@ -6,6 +6,7 @@ class Excercise (object):
 	def __init__(self, name, muscleGroup = None, link = None):
 		self.name = name
 		self.muscleGroup = muscleGroup
+		self.link = link
 
 	def __hash__(self):
 		attributes = (self.name, self.muscleGroup)
@@ -56,6 +57,15 @@ class User (object):
 			elif(18.5 <= self.BMI <= 24.9): self.goal = "midrange"
 			elif(self.BMI > 24.9): self.goal = "slimming"
 		self.recommendations = self.getRecommendations()
+		self.messages = dict()
+
+	def send(self, other, message):
+		assert(isinstance(other, User))
+		message = "%s: %s" % (self.name, message)
+		messageLog = self.messages.get(other.name, [])
+		messageLog.append(message)
+		self.messages[other.name] = messageLog
+		other.messages[self.name] = messageLog
 
 	def compatibility(self, other):
 		if(not isinstance(other, User)): return 0
