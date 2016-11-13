@@ -1,14 +1,11 @@
 import random
 import math
-#photo = PhotoImage(file = "images.png")
+import googlemaps
 
 class Excercise (object):
 	def __init__(self, name, muscleGroup = None):
 		self.name = name
 		self.muscleGroup = muscleGroup
-
-	def __repr__(self):
-		return self.name
 
 	def __hash__(self):
 		attributes = (self.name, self.muscleGroup)
@@ -40,27 +37,95 @@ class User (object):
 
 	bulkExercises = getBulkExercises()
 	cardioExercises = getCardioExercises()
+	gmaps = googlemaps.Client(key = "AIzaSyA0xMFw7tA4Oq8tWnArYl5nkFPiJ-qw6Vo")
 
 	def __init__(self, name = None, age = None, weight = None, height = None, 
-													goal = None, time = None):
+				goal = None, time = None, address = "", city = "", state = ""):
 		self.name = name
 		self.age = age
 		self.weight = weight
 		self.height = height
 		self.goal = goal
 		self.time = time
+		self.location = self.getLocationString(address, city, state)
 		self.BMI = self.getBMI()
-		if(self.goal == None or self.goal == "health"):
+		assert(goal == None or goal == "fitness" or 
+									goal == "bulking" or goal == "slimming")
+		if(self.goal == None or self.goal == "fitness"):
 			if(self.BMI < 18.5): self.goal == "bulking"
 			elif(18.5 <= self.BMI <= 24.9): self.goal = "midrange"
 			elif(self.BMI > 24.9): self.goal = "slimming"
 		self.recommendations = self.getRecommendations()
 
+	def compatibility(self, other):
+		if(not isinstance(other, User)): return 0
+		compatibility = 100
+		multipliers = 0
+		multiplierSum = 0
+
+		#comparing goals
+		if ((self.goal == "slimming" and other.goal == "bulking") or 
+			 (self.goal == "bulking" and other.goal == "slimming")):
+			compatibility -= 30
+		elif(self.goal != other.goal): compatibility -= 10
+
+		#comparing BMI
+		BMIDifference = abs(self.BMI - other.BMI)
+		BMIBase = 1.083088307
+		BMIMultiplier = BMIBase**(-BMIDifference) #exponential decay
+		multiplierSum += BMIMultiplier
+		multipliers += 1
+
+		#comparing distance
+		distance = self.getDistance(other)
+		if (distance != None):
+			multiplierBase = 1/.95
+			distanceMultiplier = multiplierBase**(-distance)
+			multiplierSum += distanceMultiplier
+			multipliers += 1
+
+		#comparing time commitment
+		if(self.time != None and other.time != None):
+			if(self.time == 0 or other.time == 0): return 0
+			timeMultiplier = 1 - abs(math.log(self.time) 
+														- math.log(other.time))
+			timeMultiplier = max(0, timeMultiplier)
+			multiplierSum += timeMultiplier
+			multipliers += 1
+
+		multiplier = multiplierSum/multipliers
+		compatibility *= multiplier
+		compatibility = compatibility//.1/10 #format the compatibility number
+		return (compatibility, distance)
+
+	def getDistance(self, other):
+		print(self.location, other.location)
+		try:
+			matrix = User.gmaps.distance_matrix(self.location, other.location)
+		except:
+			return None
+		destinationInfo = matrix["rows"][0]["elements"][0]
+		if (destinationInfo["status"] != "OK"): return None
+		distanceM = destinationInfo["distance"]["value"]
+		distanceMi = distanceM/1609.34 #convert from meters to miles
+		formattedDistance = distanceMi//.1/10
+		return formattedDistance
+
 	def getBMI(self):
-	    weightInKg = 0.453592*self.weight   # convert pound to kg
-	    heightInM = .0254*self.height       # inch to cm
-	    BMI = weightInKg/(heightInM**2)
-	    return BMI
+		if(self.height == None or self.weight == None): return 0
+		if(self.height <= 0): return 0
+		weightInKg = 0.453592*self.weight
+		heightInM = .0254*self.height       # inch to cm
+		BMI = weightInKg/(heightInM**2)
+		return BMI
+
+	def getLocationString(self, address, city, state):
+		location = address
+		if(location != ""): location += ", " + city
+		else: location = city
+		if(location != ""): location += ", " + state
+		else: location = state
+		return location
 
 	def getMidRangeExercises(self):
 	    # mid range 18.5 - 24.9
@@ -82,22 +147,6 @@ class User (object):
 		if(self.goal == "bulking"): return User.bulkExercises
 		elif(self.goal == "slimming"): return User.cardioExercises
 		else: return self.getMidRangeExercises()
-
-	def compatibility(self, other):
-		if(not isinstance(other, User)): return None
-
-		compatibility = 100
-		if (self.goal != other.goal):
-			compatibility -= 30
-		BMICompatability = 1 - abs(self.BMI - other.BMI)/10
-		BMICompatability = max(0, BMICompatability)
-		compatibility *= BMICompatability
-		if(self.time != None and other.time != None):
-			timeCompatability = 1 - abs(math.log(self.time) 
-														- math.log(other.time))
-			timeCompatability = max(0, timeCompatability)
-			compatibility *= timeCompatability
-		return compatibility	
 
 	def __hash__(self):
 		attributes = (self.name, self.age, self.weight, self.height, self.goal)

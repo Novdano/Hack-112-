@@ -20,6 +20,9 @@ class MakePost(View):
         Height_Inches = request.POST.get("Height (Inches)")
         timeCommitment = request.POST.get("Time Commitment")
         introduction = request.POST.get("Introduction")
+        location = request.POST.get("Location")
+        city = request.POST.get("City")
+        state = request.POST.get("State")
         #Introduction = request.POST.get("Introduction")
         Goal = request.POST.get("Goal")
         new_post = userData(name= name, age = age, weight = weight,
@@ -28,6 +31,7 @@ class MakePost(View):
         new_post.save()
         return HttpResponseRedirect("/recommended")
 
+#return only the compatibility without the tuple
 def dictionaryOfRecommended(user1, userList):
     recomm = dict()
     for userObjects in userList:
@@ -35,15 +39,28 @@ def dictionaryOfRecommended(user1, userList):
         user = User(name = userObjects.name, age = userObjects.age, 
                         weight = userObjects.weight, height=heightUser, 
                         goal = userObjects.goals, time = userObjects.timeCommit)
-        compatibility = user1.compatibility(user)
+        compatibility = (user1.compatibility(user))[0]
         recomm[compatibility] = userObjects.name
     return recomm
+
+def dictionaryOfDistance(user1, userList):
+    distanceDict= dict()
+    for userObjects in userList:
+        heightUser = height(userObjects.heightFeet, userObjects.heightInches)
+        user = User(name = userObjects.name, age = userObjects.age, 
+                        weight = userObjects.weight, height=heightUser, 
+                        goal = userObjects.goals, time = userObjects.timeCommit, 
+                        address = userObjects.location, city = userObjects.city,
+                        state =userObjects.state)
+        distance = (user1.compatibility(user))[1]
+        distanceDict[userObjects.name] = distance
+    return distanceDict
 
 def getTop3(percentDict):
     listPercent = []
     for val in percentDict:
         listPercent += [val]
-    listPercent.remove(100.0)
+    listPercent.remove(99.9)
     listPercent.sort()
     listPercent = listPercent[::-1]
     threeListInt = []
@@ -72,17 +89,25 @@ def recommended(request):
     heightUserTested = height(userTestedObject.heightFeet, userTestedObject.heightInches)
     userTested = User(name = userTestedObject.name, age = userTestedObject.age, 
                         weight = userTestedObject.weight, height=heightUserTested, 
-                        goal = userTestedObject.goals, time = userTestedObject.timeCommit)
+                        goal = userTestedObject.goals, time = userTestedObject.timeCommit,
+                        address = userTestedObject.location, city = userTestedObject.city, 
+                        state = userTestedObject.state)
     #return the list of people 
     compatibilityDict = dictionaryOfRecommended(userTested, userObjectList)
     recommendedList, compatibilityList = getTop3(compatibilityDict)[0], getTop3(compatibilityDict)[1]
     #return the list of recommended exercises
     exercises = userTested.getRecommendations()
+    #return the distance from each other
+    distanceDict = dictionaryOfDistance(userTested, userObjectList)
+    relevantDist = []
+    for people in recommendedList:
+        relevantDist.append(distanceDict[people])
     context = {"analyzed": userTestedObject,
                 "users": recommendedList,
                 "compatibilities": compatibilityList,
                 "index": [0,1,2,3,4],
                 "exercises": exercises,
+                "distance": relevantDist,
                 }
     return render(request, 'recommended.html', context)
         
