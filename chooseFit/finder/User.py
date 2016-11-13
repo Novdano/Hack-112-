@@ -38,7 +38,7 @@ class User (object):
 
 	bulkExercises = getBulkExercises()
 	cardioExercises = getCardioExercises()
-	gmaps = googlemaps.Client(key = "AIzaSyA0xMFw7tA4Oq8tWnArYl5nkFPiJ-qw6Vo")
+	gmaps = googlemaps.Client(key = "AIzaSyBf6RK4On_TfCURCGMhQHPIcva_6njdr5I")
 
 	def __init__(self, name = None, age = None, weight = None, height = None, 
 				goal = None, time = None, address = "", city = "", state = ""):

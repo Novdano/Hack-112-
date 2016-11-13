@@ -22,10 +22,10 @@ from finder.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', HomePage.as_view()),
+    url(r'^$', HomePage.as_view(), name = "home"),
     url(r'^makepost$', MakePost.as_view()),
     url(r'^recommended/$', recommended),
-    url(r'^(?P<id>\d+)/$', partnerProfile),
+    url(r'^(?P<id>\d+)/$', partnerProfile, name = "profile"),
 ]
 
 

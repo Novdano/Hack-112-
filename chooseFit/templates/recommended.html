@@ -18,11 +18,8 @@
     <body>
         <nav>
             <div class="nav-wrapper">
-              <a href="#" class="brand-logo">{{analyzed.name}}</a>
+              <a href="#" class="brand-logo">{{analyzed.name}} - Analysis</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">JavaScript</a></li>
               </ul>
             </div>
           </nav>
@@ -32,7 +29,7 @@
               <div class="col m8 offset-m2 s12">
                   <div class="card">
                       <div class="card-content">
-                          <span class="card-title">{{ users.0.name}}</span>
+                          <span class="card-title"><a href='{% url "profile" id=users.0.id %}'>{{ users.0.name}}</span>
                           <p>Compatibility:  {{compatibilities.0}} %</p>
                           <p>Distance:  {{ distance.0 }} miles</p>
                           <p>{{ users.0.intro }}</p>
@@ -45,7 +42,7 @@
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ users.1.name}}</span>
+                            <span class="card-title"><a href='{% url "profile" id=users.1.id %}'>{{ users.1.name}}</span>
                             <p>Compatibility:  {{compatibilities.1}} %</p>
                             <p>Distance:  {{distance.1}} miles</p>
                             <p>{{ users.1.intro }}</p>
@@ -58,7 +55,7 @@
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ users.2.name}}</span>
+                            <span class="card-title"><a href='{% url "profile" id=users.2.id %}'>{{ users.2.name}}</span>
                             <p>Compatibility:  {{compatibilities.2}}%</p>
                             <p>Distance:  {{distance.2}} miles</p>
                             <p>{{ users.2.intro }}</p>
@@ -71,7 +68,7 @@
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ users.3.name}}</span>
+                            <span class="card-title"><a href='{% url "profile" id=users.3.id %}'>{{ users.3.name}}</span>
                             <p>Compatibility:  {{compatibilities.3}} %</p>
                             <p>Distance:  {{distance.3}} miles</p>
                             <p>{{ users.3.intro }}</p>
@@ -84,8 +81,8 @@
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ users.4.name}}</span>
-                            <p>Compatibility:  {{compatibilities.4}} miles</p>
+                            <span class="card-title"><a href='{% url "profile" id=users.4.id %}'>{{ users.4.name}}</span>
+                            <p>Compatibility:  {{compatibilities.4}} %</p>
                             <p>Distance:  {{distance.4}} miles</p>
                             <p>{{ users.4.intro }}</p>
                         </div>

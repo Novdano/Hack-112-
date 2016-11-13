@@ -45,6 +45,8 @@ def dictionaryOfRecommended(user1, userList):
         compatibility = (user1.compatibility(user))[0]
         distance = (user1.compatibility(user))[1]
         recomm[compatibility] = (userObjects.name, distance)
+        print(recomm)
+        print("\n")
     return recomm
 
 def getTop5(percentDict):

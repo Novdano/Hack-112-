@@ -20,6 +20,7 @@ class userData(models.Model):
     location = models.CharField(max_length = 500, default = "Carnegie Mellon University")
     city = models.CharField(max_length = 100, default = "Pittsburgh")
     state = models.CharField(max_length = 100, default = "PA")
+    email = models.CharField(max_length = 200, default = "cmu@edu.com")
 
     def __unicode__(self):
         return self.name
