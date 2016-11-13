@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
+from user import *
 
 from .models import *
 
@@ -25,7 +26,14 @@ class MakePost(View):
         new_post.save()
         return HttpResponseRedirect("/")
 
+def dictionaryOfRecommended(user1, userList):
+    
+
 def recommended(request):
+    userTested = userData.objects.all()[-1]
+    userObjectList = userData.objects.all()[:-1]
+    recommended = dictionaryOfRecommended(userTested, userObjectList)
+
     context = {}
     context["posts"] = userData.objects.all()[::-1]
     return render(request, 'recommended.html', context)
