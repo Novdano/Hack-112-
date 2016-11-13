@@ -7,9 +7,9 @@ class Excercise (object):
 def getCardioExercises():
     cardioExercises = []
     exercises = [
-                      'Jog', 'Brisk Walk', 'HIIT', 'Short Sprints', 
-                      'Circuit Training', 'Rowing', 'Yoga', 'Stretching',
-                      'Pilates', 'Zumba'
+                      'Jog', 'Brisk Walk', 'HIIT', 
+                      'Circuit Training', 'Rowing',
+                      'Zumba'
                 ]
 
     for exercise in exercises:
