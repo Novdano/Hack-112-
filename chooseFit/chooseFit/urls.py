@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^$', HomePage.as_view()),
     url(r'^makepost$', MakePost.as_view()),
     url(r'^recommended/$', recommended),
+    url(r'^(?P<id>\d+)/$', partnerProfile),
 ]
 
 

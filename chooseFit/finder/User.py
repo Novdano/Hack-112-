@@ -50,8 +50,6 @@ class User (object):
 		self.time = time
 		self.location = self.getLocationString(address, city, state)
 		self.BMI = self.getBMI()
-		assert(goal == None or goal == "fitness" or 
-									goal == "bulking" or goal == "slimming")
 		if(self.goal == None or self.goal == "fitness"):
 			if(self.BMI < 18.5): self.goal == "bulking"
 			elif(18.5 <= self.BMI <= 24.9): self.goal = "midrange"

@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 from User import *
@@ -105,7 +107,7 @@ def partnerProfile(request, id):
     user = get_object_or_404(userData, id=id)
     context = {
         "title": user.name,
-        "object": user, 
+        "user": user, 
     }
     return render(request, "profile.html", context)
         
