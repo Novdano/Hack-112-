@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+        
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+                  
+    </head>
+    
+    
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo">postly</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">JavaScript</a></li>
+              </ul>
+            </div>
+          </nav>
+          
+        <div class="row">
+            <div class="col m8 offset-m2 s12">
+                <div class="card-panel">
+                    <form method="POST" action="/makepost">
+                        {% csrf_token %}
+                        <div class="input-field">
+                          <input name="Name" id="name" type="text" class="validate">
+                          <label for="name">Your Name</label>
+                        </div>
+
+                        <div class="input-field">
+                          <input name="Age" id="name" type="number" class="validate">
+                          <label for="name">Your Age</label>
+                        </div>
+
+                        <div class="input-field">
+                          <input name="Weight" id="name" type="number" class="validate">
+                          <label for="name">Your Weight</label>
+                        </div>
+
+                        <div class="input-field">
+                          <input name="Height (Feet)" id="name" type="number" class="validate">
+                          <label for="name">Your Height (Feet)</label>
+                        </div>
+
+                        <div class="input-field">
+                          <input name="Height (Inches)" id="name" type="number" class="validate">
+                          <label for="name">Your Height (Inches)</label>
+                        </div>
+
+                        <div class="input-field">
+                          <input name="Time Commitment" id="name" type="number" class="validate">
+                          <label for="name">Your Time Commitment (Hours per Week)</label>
+                        </div>
+
+                        <div class="input-field">
+                          <input name="Goal" id="name" type="text" class="validate">
+                          <label for="name">Your Goal</label>
+                        </div>
+
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </body>
+</html>
