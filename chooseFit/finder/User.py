@@ -7,6 +7,9 @@ class Excercise (object):
 		self.name = name
 		self.muscleGroup = muscleGroup
 
+	def __repr__(self):
+		return self.name
+
 	def __hash__(self):
 		attributes = (self.name, self.muscleGroup)
 		return hash(attributes)

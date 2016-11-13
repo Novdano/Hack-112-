@@ -73,12 +73,16 @@ def recommended(request):
     userTested = User(name = userTestedObject.name, age = userTestedObject.age, 
                         weight = userTestedObject.weight, height=heightUserTested, 
                         goal = userTestedObject.goals, time = userTestedObject.timeCommit)
+    #return the list of people 
     compatibilityDict = dictionaryOfRecommended(userTested, userObjectList)
     recommendedList, compatibilityList = getTop3(compatibilityDict)[0], getTop3(compatibilityDict)[1]
+    #return the list of recommended exercises
+    exercises = userTested.getRecommendations()
     context = {"analyzed": userTestedObject,
                 "users": recommendedList,
                 "compatibilities": compatibilityList,
-                "index": [0,1,2,3,4]
+                "index": [0,1,2,3,4],
+                "exercises": exercises,
                 }
     return render(request, 'recommended.html', context)
         
