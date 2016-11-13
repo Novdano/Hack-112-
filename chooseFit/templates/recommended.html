@@ -22,32 +22,68 @@
               </ul>
             </div>
           </nav>
-          
-        {% for comp in compatibilities %}
-            <div class="row">
+
+
+          <div class="row">
+              <div class="col m8 offset-m2 s12">
+                  <div class="card">
+                      <div class="card-content">
+                          <span class="card-title">{{ users.0.name}}</span>
+                          <p>Compatibility:  {{compatibilities.0}}%</p>
+                          <p>{{ users.0.intro}}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{comp}}</span>
+                            <span class="card-title">{{ users.1.name}}</span>
+                            <p>Compatibility:  {{compatibilities.1}}%</p>
+                            <p>{{ users.1.intro}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
 
-
-        {% for user in users %}
             <div class="row">
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ user.name}}</span>
-                            <p>{{ user.intro }}</p>
+                            <span class="card-title">{{ users.2.name}}</span>
+                            <p>Compatibility:  {{compatibilities.2}}%</p>
+                            <p>{{ users.2.intro}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+
+            <div class="row">
+                <div class="col m8 offset-m2 s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{ users.3.name}}</span>
+                            <p>Compatibility:  {{compatibilities.3}}%</p>
+                            <p>{{ users.3.intro}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col m8 offset-m2 s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{ users.4.name}}</span>
+                            <p>Compatibility:  {{compatibilities.4}}%</p>
+                            <p>{{ users.4.intro}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
     </body>

@@ -19,10 +19,12 @@ class MakePost(View):
         Height_Feet = request.POST.get("Height (Feet)")
         Height_Inches = request.POST.get("Height (Inches)")
         timeCommitment = request.POST.get("Time Commitment")
+        introduction = request.POST.get("Introduction")
         #Introduction = request.POST.get("Introduction")
         Goal = request.POST.get("Goal")
         new_post = userData(name= name, age = age, weight = weight,
-                     heightFeet = Height_Feet, timeCommit = timeCommitment, goals =Goal, heightInches = Height_Inches)
+                     heightFeet = Height_Feet, timeCommit = timeCommitment,
+                      intro = introduction, goals =Goal, heightInches = Height_Inches)
         new_post.save()
         return HttpResponseRedirect("/recommended")
 
@@ -76,6 +78,7 @@ def recommended(request):
     context = {"analyzed": userTestedObject,
                 "users": recommendedList,
                 "compatibilities": compatibilityList,
+                "index": [0,1,2,3,4]
                 }
     return render(request, 'recommended.html', context)
         
