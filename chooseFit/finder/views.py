@@ -38,21 +38,27 @@ def dictionaryOfRecommended(user1, userList):
     return recomm
 
 def getTop3(percentDict):
-    listPercent = list(percentDict)
+    listPercent = []
+    for val in percentDict:
+        listPercent += [val]
     listPercent.remove(100.0)
+    listPercent.sort()
     listPercent = listPercent[::-1]
     threeListInt = []
     threeList = []
-    for index in range(0,3):
+    for index in range(0,5):
         percent = listPercent[index]
         threeList += [percent]
         threeListInt +=[int(percent)]
     names = [percentDict[threeList[0]], percentDict[threeList[1]], 
-                percentDict[threeList[2]]]
+                percentDict[threeList[2]], percentDict[threeList[3]], 
+                percentDict[threeList[4]]]
     user1 = userData.objects.get(name = names[0])
     user2 = userData.objects.get(name = names[1])
     user3 = userData.objects.get(name = names[2])
-    name = [user1, user2, user3]
+    user4 = userData.objects.get(name = names[3])
+    user5 = userData.objects.get(name = names[4])
+    name = [user1, user2, user3, user4, user5]
     return (name, threeListInt)
 
 def height(heightFeet, heightInches):
@@ -68,7 +74,8 @@ def recommended(request):
     compatibilityDict = dictionaryOfRecommended(userTested, userObjectList)
     recommendedList, compatibilityList = getTop3(compatibilityDict)[0], getTop3(compatibilityDict)[1]
     context = {"analyzed": userTestedObject,
-                "users": recommendedList, 
-                "compatibilities": compatibilityList}
+                "users": recommendedList,
+                "compatibilities": compatibilityList,
+                }
     return render(request, 'recommended.html', context)
         
