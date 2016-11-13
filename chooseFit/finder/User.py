@@ -50,18 +50,14 @@ class User (object):
 		self.time = time
 		self.location = self.getLocationString(address, city, state)
 		self.BMI = self.getBMI()
-<<<<<<< HEAD
 		if(self.goal == None or self.goal == "fitness"):
-=======
-		assert(goal == None or goal == "health" or 
-									goal == "bulking" or goal == "slimming")
-		if(self.goal == None or self.goal == "health"):
->>>>>>> origin/master
-			if(self.BMI < 18.5): self.goal == "bulking"
-			elif(18.5 <= self.BMI <= 24.9): self.goal = "midrange"
-			elif(self.BMI > 24.9): self.goal = "slimming"
+			if(self.goal == None or self.goal == "fitness"):
+				if(self.BMI < 18.5): self.goal == "bulking"
+				elif(18.5 <= self.BMI <= 24.9): self.goal = "midrange"
+				elif(self.BMI > 24.9): self.goal = "slimming"
 		self.recommendations = self.getRecommendations()
 		self.messages = dict()
+		
 
 	def send(self, other, message):
 		assert(isinstance(other, User))
