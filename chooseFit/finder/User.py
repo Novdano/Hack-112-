@@ -48,9 +48,9 @@ class User (object):
 		self.time = time
 		self.BMI = self.getBMI()
 		if(self.goal == None or self.goal == "health"):
-			if(self.BMI < 18.5): self.goal == "bulk"
+			if(self.BMI < 18.5): self.goal == "bulking"
 			elif(18.5 <= self.BMI <= 24.9): self.goal = "midrange"
-			elif(self.BMI > 24.9): self.goal = "cut"
+			elif(self.BMI > 24.9): self.goal = "slimming"
 		self.recommendations = self.getRecommendations()
 
 	def getBMI(self):
@@ -76,8 +76,8 @@ class User (object):
 	    return exercises 
 
 	def getRecommendations(self):
-		if(self.goal == "bulk"): return bulkExercises
-		elif(self.goal == "cut"): return cardioExercises
+		if(self.goal == "bulking"): return User.bulkExercises
+		elif(self.goal == "slimming"): return User.cardioExercises
 		else: return self.getMidRangeExercises()
 
 	def compatibility(self, other):
@@ -89,7 +89,7 @@ class User (object):
 		BMICompatability = 1 - abs(self.BMI - other.BMI)/10
 		BMICompatability = max(0, BMICompatability)
 		compatibility *= BMICompatability
-		if(self.time != None and self.other != None):
+		if(self.time != None and other.time != None):
 			timeCompatability = 1 - abs(math.log(self.time) 
 														- math.log(other.time))
 			timeCompatability = max(0, timeCompatability)

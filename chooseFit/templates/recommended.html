@@ -14,7 +14,7 @@
     <body>
         <nav>
             <div class="nav-wrapper">
-              <a href="#" class="brand-logo">postly</a>
+              <a href="#" class="brand-logo">{{analyzed.name}}</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>
@@ -23,18 +23,32 @@
             </div>
           </nav>
           
-        {% for post in posts %}
+        {% for comp in compatibilities %}
             <div class="row">
                 <div class="col m8 offset-m2 s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">{{ post.intro}}</span>
-                            <p>{{ post.name }}</p>
+                            <span class="card-title">{{ comp}}</span>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
+
+
+        {% for user in users %}
+            <div class="row">
+                <div class="col m8 offset-m2 s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{ user.name}}</span>
+                            <p>{{ user.intro }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
 
     </body>
 </html>

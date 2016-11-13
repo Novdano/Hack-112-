@@ -17,3 +17,6 @@ class userData(models.Model):
     goals = models.CharField(max_length = 10, choices =goalChoices)
     heightInches = models.IntegerField(default = 0)
     profile = models.CharField(max_length = 1000, default = "http://cdn3.denofgeek.us/sites/denofgeekus/files/scarlett_johansson.jpg")
+
+    def __unicode__(self):
+        return self.name
